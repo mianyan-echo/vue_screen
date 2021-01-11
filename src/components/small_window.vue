@@ -9,7 +9,8 @@
       <div class="small_window" ref="small_window"
            @mousedown="mouseDownHandleelse($event)"
            @mouseup="mouseUpHandleelse($event)">
-        <slot>这里填充内容</slot>
+        <!--TODO : 这里销毁slot以后并不会销毁插入到这里的组件-->
+        <slot v-if="popup">这里填充内容</slot>
         <button class="rule" @click="close_popup">X</button>
       </div>
     </div>
@@ -72,9 +73,6 @@ export default {
 }
 .small_window{
   position: fixed;
-  font-size: 24px;
-  height: 360px;
-  width: 240px;
   background-color: gold;
   border-radius: 0.25rem;
   left: 50%;
