@@ -1,21 +1,27 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <SmallWindow>视频</SmallWindow>
+    <Small_window>
+      <Dash_player></Dash_player>
+    </Small_window>
     <HelloWorld msg="abc"/>
   </div>
 </template>
 
 <script>
 import HelloWorld from '@/components/HelloWorld.vue';
-import SmallWindow from '@/components/small_window';
+import Small_window from '@/components/small_window';
+import Dash_player from "@/components/dash_player";
 
 export default {
   name: 'App',
+  data() {
+  },
   components: {
+    Dash_player,
     HelloWorld,
-    SmallWindow
-  }
+    Small_window,
+  },
 }
 </script>
 
