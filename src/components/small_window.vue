@@ -9,7 +9,6 @@
       <div class="small_window" ref="small_window"
            @mousedown="mouseDownHandleelse($event)"
            @mouseup="mouseUpHandleelse($event)">
-        <!--TODO : 这里销毁slot以后并不会销毁插入到这里的组件-->
         <br/>
         <slot v-if="popup">这里填充内容</slot>
         <button class="rule" @click="close_popup">X</button>
