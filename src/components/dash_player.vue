@@ -11,15 +11,17 @@ export default {
   name: "dash_player",
   data() {
     return {
-      // url: "https://s3.amazonaws.com/_bc_dml/example-content/sintel_dash/sintel_vod.mpd"
+      // url: "https://s3.amazonaws.com/_bc_dml/example-content/sintel_dash/sintel_vod.mpd",
       url: 'http://192.168.3.2:2050/dash/87199a6c-2ad5-4f75-9215-42016882ea72.mpd',
-      player: null
+      player: dashjs.MediaPlayer().create()
     }
   },
   methods: {
   },
   mounted() {
-    this.player = dashjs.MediaPlayer().create();
+    this.player.initialize(this.$refs.videoPlayer, this.url, true);
+  },
+  updated() {
     this.player.initialize(this.$refs.videoPlayer, this.url, true);
   },
 }
