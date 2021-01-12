@@ -10,6 +10,7 @@
            @mousedown="mouseDownHandleelse($event)"
            @mouseup="mouseUpHandleelse($event)">
         <!--TODO : 这里销毁slot以后并不会销毁插入到这里的组件-->
+        <br/>
         <slot v-if="popup">这里填充内容</slot>
         <button class="rule" @click="close_popup">X</button>
       </div>
@@ -43,6 +44,8 @@ export default {
       this.moveDataElse.y = event.pageY - this.$refs.small_window.offsetTop
       event.currentTarget.style.cursor = 'move'
       window.onmousemove = this.mouseMoveHandleelse
+      window.onselectstart = ()=>false
+      window.onselect = ()=>false
     },
     mouseMoveHandleelse (event) {
       let moveLeft = event.pageX - this.moveDataElse.x + 'px'
@@ -53,6 +56,8 @@ export default {
     mouseUpHandleelse (event) {
       window.onmousemove = null
       event.currentTarget.style.cursor = 'move'
+      window.onselectstart = null
+      window.onselect = null
       // console.log('鼠标松开了')
     }
 
@@ -75,6 +80,7 @@ export default {
   position: fixed;
   background-color: gold;
   border-radius: 0.25rem;
+  box-shadow: 10px 10px 5px #888888;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
