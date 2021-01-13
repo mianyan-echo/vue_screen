@@ -11,7 +11,7 @@
            @mouseup="mouseUpHandleelse($event)">
         <br/>
         <Dash_player v-if="popup" ref="dash_player"/>
-        <button class="rule" @click='reset_player'>X</button>
+        <button class="rule" @click='close_popup'>X</button>
       </div>
     </div>
   </div>
@@ -29,10 +29,6 @@ export default {
     Dash_player
   },
   methods: {
-    reset_player(){
-      this.popup = false;
-      this.$refs.dash_player.player.reset();
-    }
   }
 }
 </script>

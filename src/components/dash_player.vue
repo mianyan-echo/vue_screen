@@ -22,7 +22,11 @@ export default {
     this.player.initialize(this.$refs.videoPlayer, this.url, true);
   },
   updated() {
+    this.player.reset();
     this.player.initialize(this.$refs.videoPlayer, this.url, true);
+  },
+  beforeDestroy() {
+    this.player.reset();
   },
 }
 </script>
