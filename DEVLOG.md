@@ -16,3 +16,10 @@
 
   用element ui美化一下界面，加入过渡动画
 ***
+## 2021.1.13
+* vue组件的unmount似乎改成了destroy，将player的重置操作放入beforeDestroy以后也可以达到停止继续加载的目的
+* 想直接在vue组件中用axios请求后端的restful api，但在下手之前感觉这样一点也不灵活，所有的url都分散的放置在组件中的话既不纯粹也不好维护。
+  
+  所以在axios封装的基础上将rest api也模块化的封装起来，使其只对外提供现成的能表示操作含义的api接口函数。api版本与baseurl都可以模块化的更改
+  
+  详细的组织方法可以看rest_api的README
