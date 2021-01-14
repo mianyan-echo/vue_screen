@@ -1,5 +1,5 @@
 import _axios from 'axios';
-import {_API_URL, _API} from "@/rest_api/api_v1"; // 在这里指定使用的api版本
+import {_API_URL, _API} from "@/rest_api/api_version/api_v1"; // 在这里指定使用的api版本
 // import Qs from 'qs'; // 用来处理参数，可不使用，若要使用，npm安装： npm install qs
 
 _axios.defaults.baseURL = _API_URL.base_url; // 请求的默认域名
@@ -18,10 +18,10 @@ _axios.interceptors.request.use(config => {
 //添加一个响应拦截器
 _axios.interceptors.response.use(res => {
   //在这里对返回的数据进行处理
-  console.log(res.data, '网络正常');
-  return res.data;
+  // console.log(res.data, '网络正常');
+  return res;
 }, err => {
-  console.log('网络开了小差！请重试...');
+  // console.log('网络开了小差！请重试...');
   return Promise.reject(err);
 })
 

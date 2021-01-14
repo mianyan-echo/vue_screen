@@ -5,7 +5,7 @@
 import {get} from "@/rest_api/request_methods";
 
 const API_VERSION = 'api-v1';
-const BASE_URL = 'http://127.0.0.1:8000/'+API_VERSION+'/';
+const BASE_URL = 'http://127.0.0.1:8080/'+API_VERSION+'/';
 
 // API_URL封装，统一返回URL对象
 export const _API_URL = {
@@ -47,6 +47,17 @@ export const _API_URL = {
 export const _API = {
     // 获得指定ip摄像头的MPEG DASH直播地址
     api_camera_dash_url(uid) {
-        return get(_API_URL.ip_camera_dash(uid).href());
+        // return get(_API_URL.ip_camera_dash(uid).href);
+        let url = _API_URL.ip_camera(uid);
+        // 这里没有找到合适的办法将数据从promise链中拿出来对外提供，只能再起一个promise链
+        return new Promise((resolve, reject)=>{
+            get(url)
+                .then(data => {
+                    resolve(data.dash_url);
+                })
+                .catch(err => {
+                    reject(err);
+                })
+        })
     },
 }
