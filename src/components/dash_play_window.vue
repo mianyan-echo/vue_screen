@@ -10,7 +10,10 @@
            @mousedown="mouseDownHandleelse($event)"
            @mouseup="mouseUpHandleelse($event)">
         <br/>
-        <Dash_player v-if="popup" ref="dash_player"/>
+        <Dash_player v-if="popup"
+                     ref="dash_player"
+                     :dash_url="dash_url"/>
+
         <button class="rule" @click='close_popup'>X</button>
       </div>
     </div>
@@ -24,11 +27,28 @@ import Dash_player from '@/components/dash_player';
 export default {
   name: "dash_play_window",
   extends: Small_window,
-
+  data() {
+    return {
+      dash_url: null
+    }
+  },
   components: {
     Dash_player
   },
+
   methods: {
+    camera_dash_url(uid){
+      this.$rest_api.api_camera_dash_url(uid)
+          .then(res => {
+            this.dash_url = res;
+          })
+          .catch(err => {
+            console.log(err);
+          })
+    },
+  },
+  created() {
+    this.camera_dash_url('87199a6c-2ad5-4f75-9215-42016882ea72');
   }
 }
 </script>

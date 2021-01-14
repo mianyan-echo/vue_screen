@@ -9,14 +9,20 @@ import dashjs from 'dashjs';
 
 export default {
   name: "dash_player",
+  props: ['dash_url'],
   data() {
     return {
-      // url: "https://s3.amazonaws.com/_bc_dml/example-content/sintel_dash/sintel_vod.mpd",
-      url: 'http://192.168.3.2:2050/dash/87199a6c-2ad5-4f75-9215-42016882ea72.mpd',
+      url: "https://s3.amazonaws.com/_bc_dml/example-content/sintel_dash/sintel_vod.mpd",
+      // url: 'http://192.168.3.2:2050/dash/87199a6c-2ad5-4f75-9215-42016882ea72.mpd',
       player: dashjs.MediaPlayer().create()
     }
   },
   methods: {
+  },
+  created() {
+    if (this.dash_url) {
+      this.url = this.dash_url
+    }
   },
   mounted() {
     this.player.initialize(this.$refs.videoPlayer, this.url, true);
