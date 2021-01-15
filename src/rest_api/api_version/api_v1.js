@@ -45,15 +45,56 @@ export const _API_URL = {
 
 // API封装，封装使用axios进行请求的函数
 export const _API = {
+    // 获得完整的ip摄像头列表
+    api_camera_list() {
+        let url = _API_URL.ip_camera_list()
+        return new Promise((resolve, reject)=>{
+            get(url)
+                .then(data => {
+                    resolve(data);
+                })
+                .catch(err => {
+                    reject(err);
+                })
+        })
+    },
+
     // 获得指定ip摄像头的MPEG DASH直播地址
     api_camera_dash_url(uid) {
-        // return get(_API_URL.ip_camera_dash(uid).href);
-        let url = _API_URL.ip_camera(uid);
+        let url = _API_URL.ip_camera_dash(uid);
         // 这里没有找到合适的办法将数据从promise链中拿出来对外提供，只能再起一个promise链
         return new Promise((resolve, reject)=>{
             get(url)
                 .then(data => {
                     resolve(data.dash_url);
+                })
+                .catch(err => {
+                    reject(err);
+                })
+        })
+    },
+
+    // 获得指定ip摄像头的HLS直播地址
+    api_camera_hls_url(uid) {
+        let url = _API_URL.ip_camera_entry(uid, 'hls_url');
+        return new Promise((resolve, reject)=>{
+            get(url)
+                .then(data => {
+                    resolve(data.hls_url);
+                })
+                .catch(err => {
+                    reject(err);
+                })
+        })
+    },
+
+    // 按geohash查询一定范围内的摄像头
+    api_search_camera_by_geohash(geohash, range) {
+        let url = _API_URL.search_ip_camera_by_geohash(geohash, range);
+        return new Promise((resolve, reject)=>{
+            get(url)
+                .then(data => {
+                    resolve(data);
                 })
                 .catch(err => {
                     reject(err);
