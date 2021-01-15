@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <Dash_play_window/>
+      <Dash_play_window v-for="ip_camera in ip_cameras"
+                        :cam="ip_camera"/>
   </div>
 </template>
 
@@ -12,6 +13,25 @@ export default {
   name: 'App',
   components: {
     Dash_play_window,
+  },
+  data() {
+    return {
+      ip_cameras: null,
+    }
+  },
+  methods: {
+    camera_list(){
+      this.$rest_api.api_camera_list()
+          .then(data => {
+            this.ip_cameras = data;
+          })
+          .catch(err => {
+            console.log(err);
+          })
+    }
+  },
+  created() {
+    this.camera_list()
   },
 }
 </script>

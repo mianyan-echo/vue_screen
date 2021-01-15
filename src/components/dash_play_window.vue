@@ -1,7 +1,10 @@
 <template>
   <div>
-    <div>
-      <a href="javascript:;" @click="show_popup">X</a>
+    <div v-if="cam.online">
+      <a href="javascript:;" @click="show_popup">geohash:{{ cam.geohash }}</a>
+    </div>
+    <div v-else>
+      <p>geohash:{{ cam.geohash }}</p>
     </div>
 
     <div v-show="popup">
@@ -27,6 +30,7 @@ import Dash_player from '@/components/dash_player';
 export default {
   name: "dash_play_window",
   extends: Small_window,
+  props:['cam'],
   data() {
     return {
       dash_url: null
@@ -48,7 +52,7 @@ export default {
     },
   },
   created() {
-    this.camera_dash_url('87199a6c-2ad5-4f75-9215-42016882ea72');
+    this.camera_dash_url(this.cam.cam_id);
   }
 }
 </script>
