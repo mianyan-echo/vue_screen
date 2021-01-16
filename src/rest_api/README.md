@@ -16,17 +16,19 @@ rest_api
 ## 约定
 为方便管理与迭代更新，对每个文件定义的内容做出一些限制
 默认后端提供的为基本符合restful习惯的url，即`/api版本号/宾语······
-* index.js
+* **index.js**
   * 负责axios的底层配置，如设置请求拦截器、响应拦截器，对请求头与响应头进行处理，加入OAuth用户鉴权等
   * 选择对外提供的api版本，即选择导入的api模块文件
   * 供外部调用的三个对象，即
     * axios--经过封装的axios库
     * API_URL--获取API对应的url，每个方法应返回内置URL对象；存储着api的版本名与baseURL
     * API--使用API_URL与后端交互，每个方法应为一个封装好的API接口函数
-* request_methods.js
+  
+* **request_methods.js**
   * 封装axios的GET、POST、PUT、DELETE等方法，可以特化一些方法，对收到的json进行统一预处理
   * API模块调用此模块内的方法对后端发起请求
-* api_version/*.js
+  
+* **api_version/\*.js**
   * 每个文件定义一个版本的api的全部内容，根据后端api版本的迭代进行更新
   * 每个文件内有两个对index.js提供的对象
     * _API_URL **`.api_version`属性**保存`api版本号`的名字，**`.base_url`属性**保存api的baseURL，其内的方法保存获得api的url的函数，统一返回`URL`对象。
