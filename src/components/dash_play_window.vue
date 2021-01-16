@@ -1,7 +1,8 @@
 <template>
   <div>
     <div v-if="cam.online">
-      <a href="javascript:;" @click="show_popup">geohash:{{ cam.geohash }}</a>
+      <el-button type="primary"
+                 @click="show_popup">geohash:{{ cam.geohash }}</el-button>
     </div>
     <div v-else>
       <p>geohash:{{ cam.geohash }}</p>
