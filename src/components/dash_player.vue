@@ -6,24 +6,25 @@
 
 <script>
 import dashjs from 'dashjs';
+import {ref, reactive} from 'vue';
 
 export default {
   name: "dash_player",
-  props: ['dash_url'],
-  data() {
+  props: {
+    dash_url: String
+  },
+
+  setup(props) {
+    const url = ref(props.dash_url);
+    // const url = ref("https://s3.amazonaws.com/_bc_dml/example-content/sintel_dash/sintel_vod.mpd");
+    const player = reactive(dashjs.MediaPlayer().create())
+
     return {
-      url: "https://s3.amazonaws.com/_bc_dml/example-content/sintel_dash/sintel_vod.mpd",
-      // url: 'http://192.168.3.2:2050/dash/87199a6c-2ad5-4f75-9215-42016882ea72.mpd',
-      player: dashjs.MediaPlayer().create()
+      url,
+      player
     }
   },
-  methods: {
-  },
-  created() {
-    if (this.dash_url) {
-      this.url = this.dash_url
-    }
-  },
+
   mounted() {
     this.player.initialize(this.$refs.videoPlayer, this.url, true);
   },
@@ -31,7 +32,7 @@ export default {
     this.player.reset();
     this.player.initialize(this.$refs.videoPlayer, this.url, true);
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this.player.reset();
   },
 }

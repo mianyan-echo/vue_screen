@@ -27,33 +27,34 @@
 <script>
 import Small_window from '@/components/small_window';
 import Dash_player from '@/components/dash_player';
+import {ref} from 'vue'
 
 export default {
   name: "dash_play_window",
+  // mixins: [Small_window],
   extends: Small_window,
-  props:['cam'],
-  data() {
-    return {
-      dash_url: null
-    }
+  props: {
+    cam: Object
   },
   components: {
     Dash_player
   },
 
-  methods: {
-    camera_dash_url(uid){
-      this.$rest_api.api_camera_dash_url(uid)
-          .then(res => {
-            this.dash_url = res;
-          })
-          .catch(err => {
-            console.log(err);
-          })
-    },
+  setup() {
+    const dash_url = ref(null);
+
+    return {
+      dash_url
+    }
   },
-  created() {
-    this.camera_dash_url(this.cam.cam_id);
+  mounted() {
+    this.$rest_api.api_camera_dash_url(this.cam.cam_id)
+        .then(res => {
+          this.dash_url = res;
+        })
+        .catch(err => {
+          console.log(err);
+        })
   }
 }
 </script>
