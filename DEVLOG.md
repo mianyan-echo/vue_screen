@@ -17,7 +17,7 @@
   用element ui美化一下界面，加入过渡动画
 ***
 ## 2021.1.13
-* vue组件的unmount似乎改成了destroy，将player的重置操作放入beforeDestroy以后也可以达到停止继续加载的目的
+* ~~vue组件的unmount似乎改成了destroy，将player的重置操作放入beforeDestroy以后也可以达到停止继续加载的目的~~（见2021.1.17）
 * 想直接在vue组件中用axios请求后端的restful api，但在下手之前感觉这样一点也不灵活，所有的url都分散的放置在组件中的话既不纯粹也不好维护。
   
   所以在axios封装的基础上将rest api也模块化的封装起来，使其只对外提供现成的能表示操作含义的api接口函数。api版本与baseurl都可以模块化的更改
@@ -44,3 +44,13 @@
 * 在装element ui的时候看了一眼package.json，发现这个项目是基于vue 2.6.11的，之前一直看的教程都是vue 3.x的，怪不得组件生命周期的名字不一样
 
   想尝试一下将这个项目移植到vue 3.x，会开一个新分支dev_vue3将现有的组件移植到vue3.x，希望可以积累一些经验。
+***
+## 2021.1.17
+* 成功将项目移植到了vue3，后续将把分支改名，master会merge到与vue3开发分支，dev_echarts改名为dev_vue2并作为vue2开发分支独立开发。
+* 迁移到vue3对项目整体结构影响不大，改动最多的地方为应用入口文件main.js，它由先配置vue全局属性改为了先createApp，然后在建立好的app的基础上对本app进行配置，其实这样也就说明vue3与django一样支持了独立应用这一概念。
+* 也由于会先建立应用，所以导致了
+  * 对应用附加的`axios`、`rest_api`等全局属性并不能在组件的setup中调用
+  * 通过ref获取DOM的时候在setup内通过`context.$refs.refName`调不到任何东西
+* 由于是先通过App.vue建立好了app，所以如果想让程序最大限度地按照预想的生命周期运行，那么挂载`app.mount('#app')`就一定要在main.js的末尾，也就是先创建app，再设置app，最后挂载
+* 果然生命周期改名的问题是vue3从vue2的destroy改为了unmount
+* 总的来说，如果不考虑使用vue3的**组合式api**，那么项目一定需要更改的地方很少，由于保留了之前的**选项式api**，基本是向下兼容的
