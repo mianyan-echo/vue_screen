@@ -8,18 +8,30 @@
       <p>geohash:{{ cam.geohash }}</p>
     </div>
 
-    <div v-show="popup">
-      <!--这里是要展示的内容层-->
-      <div class="small_window" ref="small_window"
-           @mousedown="mouseDownHandleelse($event)"
-           @mouseup="mouseUpHandleelse($event)">
-        <br/>
-        <Dash_player v-if="popup"
-                     ref="dash_player"
-                     :dash_url="dash_url"/>
-
-        <button class="rule" @click='close_popup'>X</button>
-      </div>
+    <div v-show="popup"
+         class="small_window"
+         ref="small_window"
+         @mousedown="mouseDownHandleelse"
+         @mouseup="mouseUpHandleelse">
+      <el-card :body-style="{padding: '0px',background: '#d4dcea'}" shadow="hover">
+        <template #header>
+          <div class="clearfix">
+            <span></span>
+            <el-button style="float: right; padding: 3px 3px;"
+                       type="danger"
+                       icon="el-icon-close"
+                       @click="close_popup"
+                       size="small"
+                       circle
+                       autofocus></el-button>
+          </div>
+        </template>
+        <div class="text item">
+          <Dash_player v-if="popup"
+                       ref="dash_player"
+                       :dash_url="dash_url"/>
+        </div>
+      </el-card>
     </div>
   </div>
 </template>
@@ -60,25 +72,36 @@ export default {
 </script>
 
 <style scoped>
-.rule {
-  position: absolute;
-  width: 1rem;
-  height: 1rem;
-  top: 0.08rem;
-  right: 0rem;
-  background: #111111;
-  color: white;
-  text-align: center;
-}
 .small_window{
   position: fixed;
-  background-color: gold;
+  background-color: #cad5d7;
   border-radius: 0.25rem;
-  box-shadow: 10px 10px 5px #888888;
+  /*box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);*/
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 1000;
   cursor: pointer;
+}
+  .text {
+    font-size: 14px;
+  }
+
+  .item {
+    margin-bottom: 0;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+  .clearfix:after {
+    clear: both
+  }
+  /*为了让el-card的头部可控*/
+/deep/ .el-card__header {
+  padding: 5px 5px;
+  background: #b3cae3;
 }
 </style>
