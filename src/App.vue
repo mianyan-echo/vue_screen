@@ -1,9 +1,14 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-      <Dash_play_window v-for="ip_camera in ip_cameras"
-                        :key="ip_camera"
-                        :cam="ip_camera"/>
+    <el-container>
+      <el-header>远程监控系统</el-header>
+      <el-main>
+        <img alt="Vue logo" src="./assets/logo.png">
+        <Dash_play_window v-for="ip_camera in ip_cameras"
+                          :key="ip_camera"
+                          :cam="ip_camera"/>
+      </el-main>
+    </el-container>
   </div>
 </template>
 
@@ -43,6 +48,22 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+
+}
+html, body, #app, .el-container {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
+.el-header {
+  background-color: #B3C0D1;
+  color: #333;
+  text-align: center;
+  line-height: 60px;
+}
+.el-main {
+  background-color: #f3f6f8;
+  color: #333;
+  flex-grow:1;
 }
 </style>
