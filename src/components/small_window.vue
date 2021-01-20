@@ -37,6 +37,10 @@ export default {
     close_popup(){
       this.popup = false;
     },
+    minus_popup(value){
+      this.$emit('onMinusValue', value);
+      this.popup = false;
+    },
 
     mouseDownHandleelse (event) {
       this.moveDataElse.x = event.pageX - this.$refs.small_window.offsetLeft
