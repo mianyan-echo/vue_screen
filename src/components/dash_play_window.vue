@@ -24,6 +24,13 @@
                        size="small"
                        circle
                        autofocus></el-button>
+            <el-button style="float: right; padding: 3px 3px;"
+                       type="warning"
+                       icon="el-icon-minus"
+                       @click="minus_popup(dash_url)"
+                       size="small"
+                       circle
+                       autofocus></el-button>
           </div>
         </template>
         <div class="text item">
@@ -39,7 +46,7 @@
 <script>
 import Small_window from '@/components/small_window';
 import Dash_player from '@/components/dash_player';
-import {ref} from 'vue'
+import {ref} from 'vue';
 
 export default {
   name: "dash_play_window",
