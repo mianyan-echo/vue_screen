@@ -38,7 +38,7 @@ export default {
       this.popup = false;
     },
     minus_popup(value){
-      this.$emit('onMinusValue', value);
+      this.$emit('minus_value', value);
       this.popup = false;
     },
 

@@ -1,13 +1,5 @@
 <template>
   <div>
-    <div v-if="cam.online">
-      <el-button type="primary"
-                 @click="show_popup">geohash:{{ cam.geohash }}</el-button>
-    </div>
-    <div v-else>
-      <p>geohash:{{ cam.geohash }}</p>
-    </div>
-
     <div v-show="popup"
          class="small_window"
          ref="small_window"
@@ -67,6 +59,7 @@ export default {
     }
   },
   mounted() {
+    // TODO:根据监视popup的值进行对后端的请求
     this.$rest_api.api_camera_dash_url(this.cam.cam_id)
         .then(res => {
           this.dash_url = res;
