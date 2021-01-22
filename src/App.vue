@@ -3,9 +3,8 @@
     <el-container>
       <el-header>远程监控系统</el-header>
       <el-main>
-        <img alt="Vue logo" src="./assets/logo.png">
-        <Dash_play_window v-for="ip_camera in ip_cameras" :key="ip_camera"
-                          :cam="ip_camera" @onMinusValue="onMinusValue"/>
+<!--        <img alt="Vue logo" src="./assets/logo.png">-->
+        <beijing_map :all_cameras="ip_cameras" @minus_value="onMinusValue"/>
       </el-main>
 
       <el-button @click="$refs.footer.open()">打开底部抽屉</el-button>
@@ -19,18 +18,18 @@
 </template>
 
 <script>
-import Dash_play_window from "@/components/dash_play_window";
 import footer_drawer from "@/components/footer_drawer";
 import dash_play_card from "@/components/dash_play_card";
+import beijing_map from "@/components/echarts/beijing_map";
 
 import {ref} from 'vue';
 
 export default {
   name: 'App',
   components: {
-    Dash_play_window,
     footer_drawer,
-    dash_play_card
+    dash_play_card,
+    beijing_map
   },
 
   setup() {
@@ -87,5 +86,8 @@ html, body, #app, .el-container {
   background-color: #f3f6f8;
   color: #333;
   flex-grow:1;
+}
+.dv-border-box-1 {
+  flex-grow: 1;
 }
 </style>
