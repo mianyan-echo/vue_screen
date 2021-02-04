@@ -2,7 +2,7 @@ module.exports = {
     publicPath: '/',
     devServer: {
         host: '0.0.0.0',
-        port: '8080',
+        port: '80',
         hot: true,
         open: false,
         overlay: {
