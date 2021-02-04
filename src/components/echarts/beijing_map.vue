@@ -365,7 +365,7 @@ export default {
   },
   updated() {
     // TODO:把更多的代码从.then中拿出去
-    this.$axios.get('http://127.0.0.1:8080/beijing.json')
+    this.$axios.get('/beijing.json')
         .then((json) => {
           this.bar3D(json.data)
         })
