@@ -8,6 +8,9 @@ _axios.defaults.timeout = 3000; // 三秒超时
 // 添加一个请求拦截器
 _axios.interceptors.request.use(config => {
     config.headers.languagetype = 'CN'; // 举例，加上一个公共头部
+    if (localStorage.getItem('token')){
+        config.headers.Authorization = 'Token ' + localStorage.getItem('token');
+    }
     // config.data = Qs.stringify(config.data); // 处理数据，可不写
     return config;
   },

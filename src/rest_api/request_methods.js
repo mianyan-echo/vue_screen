@@ -19,3 +19,16 @@ export function get(url, params){
            })
     });
 }
+
+// 封装POST方法
+export function post(url, data_json){
+    return new Promise((resolve, reject) =>{
+       axios.post(url, data_json)
+           .then(res =>{
+               resolve(res.data);
+           })
+           .catch(err => {
+               reject(err.response)
+           })
+    });
+}

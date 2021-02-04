@@ -2,18 +2,23 @@
 * API模块，集中管理一个api版本的api_url与api接口函数
 * 只对内rest_api内提供，所以名称前前加_
 * */
-import {get} from "@/rest_api/request_methods";
+import {get, post} from "@/rest_api/request_methods";
 
 const API_VERSION = 'api-v1';
-const BASE_URL = 'http://127.0.0.1:8080/'+API_VERSION+'/';
+const BASE_URL = 'http://127.0.0.1/';
 
 // API_URL封装，统一返回URL对象
 export const _API_URL = {
     api_version: API_VERSION,
     base_url: BASE_URL,
+    api_url: BASE_URL+API_VERSION+'/',
+    //用户登录
+    user_login() {
+        return new URL(this.api_url + 'auth-token');
+    },
     //ip摄像头列表url
     ip_camera_list() {
-        let url = new URL(this.base_url);
+        let url = new URL(this.api_url);
         url.pathname += 'ipcameras/';
         return url;
     },
@@ -98,6 +103,22 @@ export const _API = {
                 })
                 .catch(err => {
                     reject(err);
+                })
+        })
+    },
+
+    // 用户登录接口
+    api_user_login_token(username, password) {
+        let url = _API_URL.user_login();
+        return new Promise((resolve, reject) => {
+            post(url, {
+                username: username,
+                password: password,})
+                .then(data => {
+                    resolve(data)
+                })
+                .catch(err => {
+                    reject(err)
                 })
         })
     },
